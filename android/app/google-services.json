@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "960330616906",
+    "project_id": "calendy-x-project",
+    "storage_bucket": "calendy-x-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960330616906:android:6cbdfbf09c1f3fb71216b3",
+        "android_client_info": {
+          "package_name": "com.example.calendy_x_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960330616906-3m7ram0o3btp6vbhn9t0i5u4jm5m3oj1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqgpEQztwpOUyaW8pG0aCyaDRl7xrRfjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960330616906-3m7ram0o3btp6vbhn9t0i5u4jm5m3oj1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
