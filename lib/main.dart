@@ -11,7 +11,7 @@ import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
 import 'package:calendy_x_project/common/theme/theme.dart';
 import 'package:calendy_x_project/firebase_options.dart';
 import 'package:calendy_x_project/login/views/login_screen.dart';
-import 'package:calendy_x_project/main/screen/main_screen.dart';
+import 'package:calendy_x_project/main/view/main_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
