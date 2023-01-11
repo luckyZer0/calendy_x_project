@@ -1,0 +1,1 @@
+typedef PollId = String;

@@ -1,0 +1,1 @@
+typedef OnSaved = void Function(String?)?;

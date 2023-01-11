@@ -1,18 +1,21 @@
+import 'package:calendy_x_project/main/widgets/expandable_fab.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:calendy_x_project/common/auth/providers/auth_state_provider.dart';
 import 'package:calendy_x_project/common/constants/strings.dart';
 import 'package:calendy_x_project/common/dialogs/extensions/alert_dialog_extension.dart';
 import 'package:calendy_x_project/common/dialogs/logout_dialog.dart';
-import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
 import 'package:calendy_x_project/common/widgets/btm_nav_widget.dart';
 import 'package:calendy_x_project/common/widgets/nav_rail_widget.dart';
-import 'package:calendy_x_project/main/tabs/calendar/view/calendar_screen.dart';
-import 'package:calendy_x_project/main/tabs/profile/view/profile_screen.dart';
+import 'package:calendy_x_project/tabs/calendar/view/calendar_screen.dart';
+import 'package:calendy_x_project/tabs/group/view/group_screen.dart';
+import 'package:calendy_x_project/tabs/profile/view/profile_screen.dart';
 import 'package:calendy_x_project/main/view_tabs/enum/tab_view_model.dart';
 import 'package:calendy_x_project/main/view_tabs/provider/tab_view_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -24,7 +27,7 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainViewState extends ConsumerState<MainScreen> {
   static const List<Widget> _widgets = [
     CalendarScreen(),
-    CalendarScreen(),
+    GroupScreen(),
     ProfileScreen(),
   ];
 
@@ -97,41 +100,42 @@ class _MainViewState extends ConsumerState<MainScreen> {
                     .read(tabViewProvider.notifier)
                     .update((state) => ViewTab.values[index]),
                 items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.calendar_month),
-                    label: 'Calendar',
+                  GButton(
+                    icon: Icons.calendar_month,
+                    text: 'Calendar',
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.groups),
-                    label: 'Group',
+                  GButton(
+                    icon: Icons.groups,
+                    text: 'Group',
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    label: 'Profile',
+                  GButton(
+                    icon: Icons.person,
+                    text: 'Profile',
                   ),
                 ],
               )
             : const SizedBox(),
       ),
       floatingActionButton: tabView.index == 1
-          ? FloatingActionButton(
-              backgroundColor: Theme.of(context).primaryColor,
-              foregroundColor: AppColors.white,
-              onPressed: () async {
-                if (!mounted) {
-                  return;
-                }
-              //TODO:add dropdown list where there are twu options which is create group and join group
-              //TODO: dont forget this
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (_) => const CreateNewGroup(),
-                //   ),
-                // );
-              },
-              child: const Icon(Icons.add),
-            )
+          ? const ExpandableFab()
+          // FloatingActionButton(
+          //     backgroundColor: Theme.of(context).primaryColor,
+          //     foregroundColor: AppColors.white,
+          //     onPressed: () async {
+          //       if (!mounted) {
+          //         return;
+          //       }
+          //       //TODO:add dropdown list where there are twu options which is create group and join group
+          //       //TODO: dont forget this
+          //       // Navigator.push(
+          //       //   context,
+          //       //   MaterialPageRoute(
+          //       //     builder: (_) => const CreateNewGroup(),
+          //       //   ),
+          //       // );
+          //     },
+          //     child: const Icon(Icons.add),
+          //   )
           : null,
     );
   }
