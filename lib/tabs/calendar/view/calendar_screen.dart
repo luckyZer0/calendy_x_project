@@ -1,5 +1,3 @@
-
-
 import 'package:calendy_x_project/common/animations/error_animation.dart';
 import 'package:calendy_x_project/common/animations/loading_animation.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
@@ -77,7 +75,10 @@ class _MobileCalendarViewState extends ConsumerState<CalendarScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 3, top: 2),
+                      padding: const EdgeInsets.only(
+                        left: 3,
+                        top: 2,
+                      ),
                       child: Text(
                         details.date.day.toString(),
                       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:calendy_x_project/comments/models/group_comment_request.dart';
@@ -16,7 +15,6 @@ import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart'
 import 'package:calendy_x_project/common/extensions/dismiss_keyboard.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
 import 'package:calendy_x_project/common/typedef/group_id.dart';
-import 'package:calendy_x_project/polls/view/meeting_poll_screen.dart';
 import 'package:calendy_x_project/tabs/group/models/group.dart';
 
 class GroupCommentsView extends HookConsumerWidget {
@@ -31,8 +29,6 @@ class GroupCommentsView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUserId = ref.read(userIdProvider);
-    final isGroupAdmin = currentUserId == group.adminId;
     final isDarkMode = ref.watch(themeModeProvider);
     final textController = useTextEditingController();
     final hasText = useState(false);
@@ -91,7 +87,6 @@ class GroupCommentsView extends HookConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(
-                        flex: 1,
                         child: TextField(
                           textInputAction: TextInputAction.send,
                           controller: textController,
@@ -100,6 +95,15 @@ class GroupCommentsView extends HookConsumerWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelText: Strings.writeYourCommentHere,
+                            suffixIcon: IconButton(
+                              onPressed: hasText.value
+                                  ? () => _submitCommentController(
+                                        textController,
+                                        ref,
+                                      )
+                                  : null,
+                              icon: const Icon(Icons.send_rounded),
+                            ),
                           ),
                           onSubmitted: (comment) {
                             if (comment.isNotEmpty) {
@@ -111,36 +115,25 @@ class GroupCommentsView extends HookConsumerWidget {
                           },
                         ),
                       ),
-                      isGroupAdmin
-                          ? Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MeetingPollScreen(
-                                          groupId: groupId,
-                                          group: group,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  icon: const FaIcon(
-                                      FontAwesomeIcons.calendarPlus)),
-                            )
-                          : const SizedBox(),
-                      IconButton(
-                        onPressed: hasText.value
-                            ? () {
-                                _submitCommentController(
-                                  textController,
-                                  ref,
-                                );
-                              }
-                            : null,
-                        icon: const Icon(Icons.send_rounded),
-                      ),
+                      // isGroupAdmin
+                      //     ? Padding(
+                      //         padding: const EdgeInsets.only(left: 10.0),
+                      //         child: IconButton(
+                      //             onPressed: () {
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder: (context) => MeetingPollScreen(
+                      //                     groupId: groupId,
+                      //                     group: group,
+                      //                   ),
+                      //                 ),
+                      //               );
+                      //             },
+                      //             icon: const FaIcon(
+                      //                 FontAwesomeIcons.calendarPlus)),
+                      //       )
+                      //     : const SizedBox(),
                     ],
                   ),
                 ),

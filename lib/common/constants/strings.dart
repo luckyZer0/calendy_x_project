@@ -9,7 +9,7 @@ class Strings {
   static const writeYourCommentHere = 'Write your comment here...';
   static const appName = 'Calendy';
   static const comment = 'comment';
-  static const back = 'back';
+  static const back = 'Back';
   static const confirmMeeting = 'Confirm Meeting';
   static const loading = 'Loading...';
   static const delete = 'Delete';
@@ -21,8 +21,7 @@ class Strings {
       'Are you sure you want to delete this';
   static const noCommentsYet =
       'Nobody has commented on this post yet. You can change that though, and be the first person who comments!';
-  static const noPollsYet =
-      'Create New Polls!';
+  static const noPollsYet = 'Create New Polls!';
 
   // log out
   static const logOut = 'Log out';

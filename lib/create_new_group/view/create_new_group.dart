@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
 import 'package:calendy_x_project/common/constants/strings.dart';
+import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
 import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart';
 import 'package:calendy_x_project/common/extensions/screen_size_extension.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
@@ -43,19 +44,11 @@ class _CreateNewGroupState extends ConsumerState<CreateNewGroup> {
       });
     } catch (_) {
       //TODO: maybe make a more define error?
-      snackBar('An Error Occurred');
+      snackBar('An Error Occurred', context);
     }
   }
 
-  void snackBar(String text) {
-    var snackBar = SnackBar(
-      content: Text(
-        text,
-        textAlign: TextAlign.center,
-      ),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +178,7 @@ class _CreateNewGroupState extends ConsumerState<CreateNewGroup> {
                           }
                         } catch (_) {
                           if (_imageFile == null) {
-                            snackBar('Please select an image');
+                            snackBar('Please select an image', context);
                           }
                         }
                       }
@@ -198,3 +191,4 @@ class _CreateNewGroupState extends ConsumerState<CreateNewGroup> {
     );
   }
 }
+

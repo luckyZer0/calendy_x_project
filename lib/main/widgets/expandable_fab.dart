@@ -1,11 +1,14 @@
-import 'package:calendy_x_project/common/theme/app_colors.dart';
-import 'package:calendy_x_project/create_new_group/view/create_new_group.dart';
-import 'package:calendy_x_project/join_group/view/join_group_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import 'package:calendy_x_project/common/theme/app_colors.dart';
+import 'package:calendy_x_project/create_new_group/view/create_new_group.dart';
+import 'package:calendy_x_project/join_group/view/join_group_screen.dart';
+
 class ExpandableFab extends StatefulWidget {
-  const ExpandableFab({super.key});
+  const ExpandableFab({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ExpandableFab> createState() => _ExpandableFabState();
@@ -24,25 +27,24 @@ class _ExpandableFabState extends State<ExpandableFab> {
           label: 'Join a Group',
           onTap: () {
             Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const JoinGroupScreen(),
-                  ),
-                );
+              context,
+              MaterialPageRoute(
+                builder: (_) => const JoinGroupScreen(),
+              ),
+            );
           },
         ),
         SpeedDialChild(
-          child: const Icon(Icons.add),
-          label: 'Create a Group',
-          onTap: () {
-            Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const CreateNewGroup(),
-                  ),
-                );
-          }
-        ),
+            child: const Icon(Icons.add),
+            label: 'Create a Group',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const CreateNewGroup(),
+                ),
+              );
+            }),
       ],
     );
   }

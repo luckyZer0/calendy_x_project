@@ -1,3 +1,4 @@
+import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -36,15 +37,6 @@ class _MeetingPollViewState extends ConsumerState<MeetingPollScreen> {
   String? _date;
   String? _time;
   final _formKey = GlobalKey<FormState>();
-
-  void snackBar(String text) {
-    var snackBar = SnackBar(
-        content: Text(
-      text,
-      textAlign: TextAlign.center,
-    ));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +135,7 @@ class _MeetingPollViewState extends ConsumerState<MeetingPollScreen> {
                               time: _time!,
                             ),
                           )) {
-                            snackBar('Duplicate Date and Time values');
+                            snackBar('Duplicate Date and Time values',context);
                           } else {
                             dateTimePoll.addPolls(
                               MeetingPoll(
@@ -180,7 +172,7 @@ class _MeetingPollViewState extends ConsumerState<MeetingPollScreen> {
                     }
 
                     if (pollData.length < 2) {
-                      snackBar('Need at least 2 polls');
+                      snackBar('Need at least 2 polls', context);
                     } else {
                       await ref
                           .read(sendMeetingPollProvider.notifier)

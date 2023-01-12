@@ -14,7 +14,7 @@ class MeetingPollPayload extends MapView<String, dynamic> {
     required String title,
     required UserId userId,
     required GroupId groupId,
-    required List<MeetingPoll> meetingPolls,
+    required Iterable<MeetingPoll> meetingPolls,
   }) : super({
           FirebaseFieldName.title: title,
           FirebaseFieldName.userId: userId,

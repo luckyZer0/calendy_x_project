@@ -9,11 +9,13 @@ typedef OnTapped = void Function(int);
 class NavRailWidget extends ConsumerWidget {
   final int selectedIndex;
   final OnTapped? onTapped;
+  final List<NavigationRailDestination> destinations;
 
   const NavRailWidget({
     super.key,
     required this.selectedIndex,
     this.onTapped,
+    required this.destinations,
   });
 
   @override
@@ -24,6 +26,7 @@ class NavRailWidget extends ConsumerWidget {
       child: SafeArea(
         right: false,
         child: NavigationRail(
+          groupAlignment: 0.0001,
           unselectedIconTheme: IconThemeData(color: AppColors.white),
           selectedIconTheme: IconThemeData(
             color: darkMode ? AppColors.perano : AppColors.ebonyClay,
@@ -35,38 +38,7 @@ class NavRailWidget extends ConsumerWidget {
           labelType: NavigationRailLabelType.selected,
           selectedIndex: selectedIndex,
           onDestinationSelected: onTapped,
-          destinations: const [
-            NavigationRailDestination(
-              icon: Icon(
-                Icons.calendar_month,
-              ),
-              label: Text(
-                'Calendar',
-                style: TextStyle(
-                ),
-              ),
-            ),
-            NavigationRailDestination(
-              icon: Icon(
-                Icons.groups,
-              ),
-              label: Text(
-                'Group',
-                style: TextStyle(
-                ),
-              ),
-            ),
-            NavigationRailDestination(
-              icon: Icon(
-                Icons.person,
-              ),
-              label: Text(
-                'Profile',
-                style: TextStyle(
-                ),
-              ),
-            ),
-          ],
+          destinations: destinations,
         ),
       ),
     );

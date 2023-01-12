@@ -6,6 +6,7 @@ class FirebaseFieldName {
   static const thumbnailUrl = 'thumbnail_url';
   static const title = 'title';
   static const userId = 'uid';
+  static const members = 'member_id';
   static const photoURL = 'photo_url';
   static const comment = 'comment';
   static const createdAt = 'created_at';

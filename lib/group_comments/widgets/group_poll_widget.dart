@@ -16,7 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GroupPollView extends HookConsumerWidget {
   final Group group;
   final GroupId groupId;
-  
+
   const GroupPollView({
     super.key,
     required this.group,
@@ -47,7 +47,7 @@ class GroupPollView extends HookConsumerWidget {
                 },
                 child: ListView.builder(
                   // controller: scrollController,
-                  reverse: true,
+                  // reverse: true,
                   itemCount: polls.length,
                   itemBuilder: (context, index) {
                     final poll = polls.elementAt(index);

@@ -1,4 +1,7 @@
+import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
+import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
+import 'package:calendy_x_project/polls/view/meeting_poll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -30,6 +33,8 @@ class GroupCommentAndPoll extends StatefulHookConsumerWidget {
 class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
   @override
   Widget build(BuildContext context) {
+    final currentUserId = ref.read(userIdProvider);
+    final isGroupAdmin = currentUserId == widget.group.adminId;
     final tabViewComment = ref.watch(tabViewCommentProvider);
     final List<Widget> widgets = [
       GroupCommentsView(
@@ -41,77 +46,113 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
         groupId: widget.groupId,
       ),
     ];
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundImage: NetworkImage(
-                widget.group.thumbnailUrl,
+    return DismissKeyboardWidget(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: NetworkImage(
+                  widget.group.thumbnailUrl,
+                ),
               ),
-            ),
-            const SizedBox(width: 18.0),
-            Text(widget.group.title),
+              const SizedBox(width: 18.0),
+              Text(widget.group.title),
+            ],
+          ),
+          actions: [
+            PopupMenuButton(
+              itemBuilder: (context) => [
+                //TODO: add share and delete group
+              ],
+            )
           ],
         ),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              //TODO: add share and delete group
-            ],
-          )
-        ],
-      ),
-      body: Row(
-        children: [
-          if (MediaQuery.of(context).orientation == Orientation.landscape)
-            NavRailWidget(
-              selectedIndex: tabViewComment.index,
-              onTapped: (index) => ref
-                  .read(tabViewCommentProvider.notifier)
-                  .update((state) => ViewTabComment.values[index]),
-            ),
-          Expanded(
-            child: IndexedStack(
-              index: tabViewComment.index,
-              children: widgets,
-            ),
-          ),
-          const VerticalDivider(
-            thickness: 1.5,
-            width: 1,
-          )
-        ],
-      ),
-      bottomNavigationBar: OrientationBuilder(
-        builder: (context, orientation) => orientation == Orientation.portrait
-            ? BottomNavBarWidget(
+        body: Row(
+          children: [
+            if (MediaQuery.of(context).orientation == Orientation.landscape)
+              NavRailWidget(
                 selectedIndex: tabViewComment.index,
                 onTapped: (index) => ref
                     .read(tabViewCommentProvider.notifier)
                     .update((state) => ViewTabComment.values[index]),
-                items: const [
-                  GButton(
-                    icon: Icons.chat_rounded,
-                    text: 'Comment',
+                destinations: const [
+                  NavigationRailDestination(
+                    icon: Icon(
+                      Icons.chat_rounded,
+                    ),
+                    label: Text(
+                      'Chat',
+                      style: TextStyle(),
+                    ),
                   ),
-                  GButton(
-                    icon: Icons.poll_rounded,
-                    text: 'Polls',
+                  NavigationRailDestination(
+                    icon: Icon(
+                      Icons.poll_rounded,
+                    ),
+                    label: Text(
+                      'Polls',
+                      style: TextStyle(),
+                    ),
                   ),
                 ],
-              )
+              ),
+            Expanded(
+              child: IndexedStack(
+                index: tabViewComment.index,
+                children: widgets,
+              ),
+            ),
+            const VerticalDivider(
+              thickness: 1.5,
+              width: 1,
+            )
+          ],
+        ),
+        bottomNavigationBar: OrientationBuilder(
+          builder: (context, orientation) => orientation == Orientation.portrait
+              ? BottomNavBarWidget(
+                  selectedIndex: tabViewComment.index,
+                  onTapped: (index) => ref
+                      .read(tabViewCommentProvider.notifier)
+                      .update((state) => ViewTabComment.values[index]),
+                  items: const [
+                    GButton(
+                      icon: Icons.chat_rounded,
+                      text: 'Chat',
+                    ),
+                    GButton(
+                      icon: Icons.poll_rounded,
+                      text: 'Polls',
+                    ),
+                  ],
+                )
+              : const SizedBox(),
+        ),
+        floatingActionButton: isGroupAdmin
+            ? tabViewComment.index == 1
+                ? FloatingActionButton(
+                    // backgroundColor: Colors.blueGrey.withOpacity(0.5),
+                    backgroundColor:
+                        Theme.of(context).primaryColor.withOpacity(0.5),
+                    foregroundColor: AppColors.white,
+                    child: const FaIcon(FontAwesomeIcons.calendarPlus),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MeetingPollScreen(
+                            groupId: widget.groupId,
+                            group: widget.group,
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : null
             : const SizedBox(),
       ),
-      floatingActionButton: tabViewComment.index == 1
-          ? FloatingActionButton(
-              backgroundColor: Theme.of(context).primaryColor,
-              foregroundColor: AppColors.white,
-              child: const FaIcon(FontAwesomeIcons.calendarPlus),
-              onPressed: () {},
-            )
-          : null,
     );
   }
 }

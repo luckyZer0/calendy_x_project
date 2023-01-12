@@ -1,16 +1,21 @@
+import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
 import 'package:calendy_x_project/common/constants/dimensions.dart';
 import 'package:calendy_x_project/common/constants/strings.dart';
 import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart';
 import 'package:calendy_x_project/common/extensions/screen_size_extension.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
+import 'package:calendy_x_project/join_group/providers/join_group_notifier_provider.dart';
 
 class JoinGroupScreen extends StatefulHookConsumerWidget {
-  const JoinGroupScreen({super.key});
+  const JoinGroupScreen({
+    super.key,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -78,9 +83,22 @@ class _JoinGroupScreenState extends ConsumerState<JoinGroupScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
-                      onPressed: () {
-                        //TODO: do something
-                      },
+                      onPressed: isTextButtonEnabled.value
+                          ? () async {
+                              //TODO: do something
+
+                              final currentUserId = ref.read(userIdProvider);
+
+                              await ref
+                                  .read(joinGroupNotifierProvider.notifier)
+                                  .sendJoinGroup(
+                                    groupId: textController.text,
+                                    userId: currentUserId!,
+                                  );
+                              if (!mounted) return;
+                              Navigator.of(context).pop();
+                            }
+                          : null,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
