@@ -2,17 +2,21 @@ import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class Strings {
+  static const pleaseInsertGroupId = 'Please insert a group ID';
   static const pleaseWriteYourTitleHere = 'Please write your title here';
   static const youHaveNoGroups =
       'You have not made or joined a group yet. Please create a new group or join a group by pressing the add button located at the bottom of the screen.';
   static const writeYourCommentHere = 'Write your comment here...';
   static const appName = 'Calendy';
   static const comment = 'comment';
+  static const back = 'back';
   static const confirmMeeting = 'Confirm Meeting';
   static const loading = 'Loading...';
   static const delete = 'Delete';
   static const create = 'Create';
   static const createNewGroup = 'Create New Group';
+  static const joinGroup = 'Join Group';
+  static const joinAGroup = 'Join a Group';
   static const areYouSureYouWantToDeleteThis =
       'Are you sure you want to delete this';
   static const noCommentsYet =

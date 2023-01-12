@@ -26,18 +26,16 @@ class BottomNavBarWidget extends ConsumerWidget {
     return Material(
       color: Theme.of(context).primaryColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 14.0,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 14.0),
         child: GNav(
-          tabMargin: const EdgeInsets.symmetric(horizontal: 20),
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // tabMargin: const EdgeInsets.symmetric(horizontal: 20),
           curve: Curves.easeInToLinear,
           onTabChange: onTapped,
           selectedIndex: selectedIndex,
           key: keys,
           tabBackgroundColor:
-              darkMode ? AppColors.blackPanther : AppColors.perano,
+              darkMode ? AppColors.blackPanther : AppColors.white,
           backgroundColor: Theme.of(context).primaryColor,
           color: AppColors.white,
           tabs: items,

@@ -1,4 +1,6 @@
+import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,9 +9,9 @@ import 'package:calendy_x_project/common/widgets/btm_nav_widget.dart';
 import 'package:calendy_x_project/common/widgets/nav_rail_widget.dart';
 import 'package:calendy_x_project/group_comments/widgets/group_comments_widget.dart';
 import 'package:calendy_x_project/group_comments/widgets/group_poll_widget.dart';
-import 'package:calendy_x_project/tabs/group/models/group.dart';
 import 'package:calendy_x_project/main/view_tabs/enum/tab_view_model.dart';
 import 'package:calendy_x_project/main/view_tabs/provider/tab_view_provider.dart';
+import 'package:calendy_x_project/tabs/group/models/group.dart';
 
 class GroupCommentAndPoll extends StatefulHookConsumerWidget {
   final Group group;
@@ -102,6 +104,14 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
               )
             : const SizedBox(),
       ),
+      floatingActionButton: tabViewComment.index == 1
+          ? FloatingActionButton(
+              backgroundColor: Theme.of(context).primaryColor,
+              foregroundColor: AppColors.white,
+              child: const FaIcon(FontAwesomeIcons.calendarPlus),
+              onPressed: () {},
+            )
+          : null,
     );
   }
 }

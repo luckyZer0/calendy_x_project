@@ -3,6 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:calendy_x_project/comments/models/group_comment_request.dart';
+import 'package:calendy_x_project/comments/providers/group_comment_provider.dart';
+import 'package:calendy_x_project/comments/providers/send_comment_provider.dart';
+import 'package:calendy_x_project/comments/view/comment_tile.dart';
 import 'package:calendy_x_project/common/animations/empty_contents_with_text_animation_view.dart';
 import 'package:calendy_x_project/common/animations/error_animation.dart';
 import 'package:calendy_x_project/common/animations/loading_animation.dart';
@@ -12,12 +16,8 @@ import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart'
 import 'package:calendy_x_project/common/extensions/dismiss_keyboard.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
 import 'package:calendy_x_project/common/typedef/group_id.dart';
-import 'package:calendy_x_project/comments/models/group_comment_request.dart';
-import 'package:calendy_x_project/comments/providers/group_comment_provider.dart';
-import 'package:calendy_x_project/comments/providers/send_comment_provider.dart';
-import 'package:calendy_x_project/comments/view/comment_tile.dart';
-import 'package:calendy_x_project/tabs/group/models/group.dart';
 import 'package:calendy_x_project/polls/view/meeting_poll_screen.dart';
+import 'package:calendy_x_project/tabs/group/models/group.dart';
 
 class GroupCommentsView extends HookConsumerWidget {
   final Group group;
@@ -85,59 +85,64 @@ class GroupCommentsView extends HookConsumerWidget {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: TextField(
-                        textInputAction: TextInputAction.send,
-                        controller: textController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: Strings.writeYourCommentHere,
-                        ),
-                        onSubmitted: (comment) {
-                          if (comment.isNotEmpty) {
-                            _submitCommentController(
-                              textController,
-                              ref,
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                    isGroupAdmin
-                        ? Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MeetingPollScreen(
-                                        groupId: groupId,
-                                        group: group,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                icon: const FaIcon(
-                                    FontAwesomeIcons.calendarPlus)),
-                          )
-                        : const SizedBox(),
-                    IconButton(
-                      onPressed: hasText.value
-                          ? () {
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextField(
+                          textInputAction: TextInputAction.send,
+                          controller: textController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            labelText: Strings.writeYourCommentHere,
+                          ),
+                          onSubmitted: (comment) {
+                            if (comment.isNotEmpty) {
                               _submitCommentController(
                                 textController,
                                 ref,
                               );
                             }
-                          : null,
-                      icon: const Icon(Icons.send_rounded),
-                    ),
-                  ],
+                          },
+                        ),
+                      ),
+                      isGroupAdmin
+                          ? Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MeetingPollScreen(
+                                          groupId: groupId,
+                                          group: group,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  icon: const FaIcon(
+                                      FontAwesomeIcons.calendarPlus)),
+                            )
+                          : const SizedBox(),
+                      IconButton(
+                        onPressed: hasText.value
+                            ? () {
+                                _submitCommentController(
+                                  textController,
+                                  ref,
+                                );
+                              }
+                            : null,
+                        icon: const Icon(Icons.send_rounded),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

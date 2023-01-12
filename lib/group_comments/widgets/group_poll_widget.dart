@@ -16,6 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GroupPollView extends HookConsumerWidget {
   final Group group;
   final GroupId groupId;
+  
   const GroupPollView({
     super.key,
     required this.group,

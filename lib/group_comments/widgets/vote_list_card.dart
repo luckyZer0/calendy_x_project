@@ -56,7 +56,7 @@ class VoteListCard extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
-                    flex: 4,
+                    flex: 5,
                     child: Text(meetingPoll.date),
                   ),
                   const Spacer(flex: 2),

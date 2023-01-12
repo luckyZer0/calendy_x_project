@@ -6,8 +6,8 @@ import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart'
 import 'package:calendy_x_project/common/extensions/screen_size_extension.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
-import 'package:calendy_x_project/create_new_group/view/widgets/create_button.dart';
-import 'package:calendy_x_project/create_new_group/view/widgets/image_thumbnail_view.dart';
+import 'package:calendy_x_project/create_new_group/widgets/create_button.dart';
+import 'package:calendy_x_project/create_new_group/widgets/image_thumbnail_view.dart';
 import 'package:calendy_x_project/image_upload/helpers/image_picker_helper.dart';
 import 'package:calendy_x_project/image_upload/models/thumbnail_request.dart';
 import 'package:calendy_x_project/image_upload/providers/image_uploader_provider.dart';

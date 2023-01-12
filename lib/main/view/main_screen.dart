@@ -118,24 +118,6 @@ class _MainViewState extends ConsumerState<MainScreen> {
       ),
       floatingActionButton: tabView.index == 1
           ? const ExpandableFab()
-          // FloatingActionButton(
-          //     backgroundColor: Theme.of(context).primaryColor,
-          //     foregroundColor: AppColors.white,
-          //     onPressed: () async {
-          //       if (!mounted) {
-          //         return;
-          //       }
-          //       //TODO:add dropdown list where there are twu options which is create group and join group
-          //       //TODO: dont forget this
-          //       // Navigator.push(
-          //       //   context,
-          //       //   MaterialPageRoute(
-          //       //     builder: (_) => const CreateNewGroup(),
-          //       //   ),
-          //       // );
-          //     },
-          //     child: const Icon(Icons.add),
-          //   )
           : null,
     );
   }

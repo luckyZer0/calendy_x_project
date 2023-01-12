@@ -89,7 +89,9 @@ class VoteTile extends HookConsumerWidget {
                                   foregroundColor: AppColors.perano,
                                 ),
                           child: const Text(Strings.confirmMeeting),
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO: do something 
+                          },
                         ),
                       )
                     : const SizedBox(),
