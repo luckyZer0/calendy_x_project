@@ -89,6 +89,7 @@ class ImageUploadNotifier extends StateNotifier<IsLoading> {
         thumbnailStorageId: thumbnailStorageId,
         originalFileStorageId: originalFileStorageId,
         groupSettings: groupSettings,
+        memberId: [userId],
       );
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.groups)

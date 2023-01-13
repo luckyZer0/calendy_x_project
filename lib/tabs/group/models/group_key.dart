@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart' show immutable;
 @immutable
 class GroupKey {
   static const userId = 'uid';
+  static const memberId = 'member_id';
   static const title = 'title';
   static const createdAt = 'created_at';
   static const fileUrl = 'file_url';

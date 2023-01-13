@@ -1,4 +1,5 @@
 import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
+import 'package:calendy_x_project/join_group/notifiers/join_group_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -89,14 +90,33 @@ class _JoinGroupScreenState extends ConsumerState<JoinGroupScreen> {
 
                               final currentUserId = ref.read(userIdProvider);
 
+                              // snackBar(
+                              //   'Either Group ID does not Exist \n or \n You already in the Group!',
+                              //   context,
+                              // );
+
                               await ref
                                   .read(joinGroupNotifierProvider.notifier)
                                   .sendJoinGroup(
                                     groupId: textController.text,
                                     userId: currentUserId!,
+                                  )
+                                  .then((value) {
+                                if (value == MultiBool.userExists) {
+                                  return snackBar(
+                                    'You already in the Group!',
+                                    context,
                                   );
-                              if (!mounted) return;
-                              Navigator.of(context).pop();
+                                } else if (value == MultiBool.error) {
+                                  return snackBar(
+                                    'Group ID does not Exist!',
+                                    context,
+                                  );
+                                } else {
+                                  if (!mounted) return;
+                                  Navigator.of(context).pop();
+                                }
+                              });
                             }
                           : null,
                       child: Padding(

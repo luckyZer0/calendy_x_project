@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart' show immutable;
+
 import 'package:calendy_x_project/common/typedef/user_id.dart';
 import 'package:calendy_x_project/tabs/group/models/group_key.dart';
 import 'package:calendy_x_project/tabs/group/models/group_settings.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class Group {
@@ -17,6 +18,7 @@ class Group {
   final String thumbnailStorageId;
   final String originalFileStorageId;
   final Map<GroupSettings, bool> groupSettings;
+  // final List<UserId> memberId;
 
   Group({
     required this.groupId,
@@ -32,6 +34,7 @@ class Group {
         thumbnailUrl = json[GroupKey.thumbnailUrl],
         thumbnailStorageId = json[GroupKey.thumbnailStorageId],
         originalFileStorageId = json[GroupKey.originalFileStorageId],
+        // memberId = json[GroupKey.memberId],
         groupSettings = {
           for (final entry in json[GroupKey.groupSettings].entries)
             GroupSettings.values.firstWhere(

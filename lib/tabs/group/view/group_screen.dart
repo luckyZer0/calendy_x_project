@@ -1,3 +1,4 @@
+import 'package:calendy_x_project/tabs/group/providers/user_groups_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -6,8 +7,6 @@ import 'package:calendy_x_project/common/animations/error_animation.dart';
 import 'package:calendy_x_project/common/animations/loading_animation.dart';
 import 'package:calendy_x_project/common/constants/strings.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
-import 'package:calendy_x_project/tabs/group/providers/all_group_provider.dart';
-import 'package:calendy_x_project/tabs/group/providers/user_groups_provider.dart';
 import 'package:calendy_x_project/tabs/group/widgets/group_tile_view.dart';
 
 class GroupScreen extends ConsumerWidget {
@@ -16,7 +15,7 @@ class GroupScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkMode = ref.watch(themeModeProvider);
-    final groups = ref.watch(allGroupProvider);
+    final groups = ref.watch(userGroupsProvider);
     return RefreshIndicator(
       onRefresh: () {
         ref.invalidate(userGroupsProvider);

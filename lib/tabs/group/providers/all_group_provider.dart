@@ -10,7 +10,7 @@ import 'package:calendy_x_project/tabs/group/models/group.dart';
 final allGroupProvider = StreamProvider.autoDispose<Iterable<Group>>(
   (ref) {
     final controller = StreamController<Iterable<Group>>();
-
+    
     final sub = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.groups)
         .orderBy(FirebaseFieldName.createdAt)

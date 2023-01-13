@@ -11,6 +11,7 @@ import 'package:calendy_x_project/tabs/group/models/group_settings.dart';
 class GroupPayload extends MapView<String, dynamic> {
   GroupPayload({
     required UserId adminId,
+    required List<UserId> memberId,
     required String title,
     required String fileUrl,
     required String fileName,
@@ -21,6 +22,7 @@ class GroupPayload extends MapView<String, dynamic> {
     required Map<GroupSettings, bool> groupSettings,
   }) : super({
           GroupKey.userId: adminId,
+          GroupKey.memberId: memberId,
           GroupKey.title: title,
           GroupKey.createdAt: FieldValue.serverTimestamp(),
           GroupKey.fileUrl: fileUrl,
