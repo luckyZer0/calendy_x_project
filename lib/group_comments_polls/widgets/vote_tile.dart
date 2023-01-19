@@ -4,31 +4,36 @@ import 'package:intl/intl.dart';
 import 'package:recase/recase.dart';
 
 import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
-import 'package:calendy_x_project/common/constants/strings.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
+import 'package:calendy_x_project/group_comments_polls/widgets/vote_button.dart';
+import 'package:calendy_x_project/group_comments_polls/widgets/vote_list_card.dart';
 import 'package:calendy_x_project/login/models/user_info_model.dart';
-import 'package:calendy_x_project/group_comments/widgets/vote_list_card.dart';
-import 'package:calendy_x_project/tabs/group/models/group.dart';
+import 'package:calendy_x_project/polls/models/meeting_poll.dart';
 import 'package:calendy_x_project/polls/models/meeting_poll_comment.dart';
+import 'package:calendy_x_project/tabs/group/models/group.dart';
 
 class VoteTile extends HookConsumerWidget {
   final Group group;
   final AsyncValue<UserInfoModel> userInfo;
   // final MeetingPoll poll;
   final MeetingPollComment pollComment;
+  final int index;
+  final Iterable<MeetingPollComment> polls;
+  final MeetingPoll poll;
 
   const VoteTile({
     Key? key,
     required this.group,
     required this.userInfo,
-    // required this.poll,
     required this.pollComment,
+    required this.index,
+    required this.polls,
+    required this.poll,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final isDarkMode = ref.watch(themeModeProvider);
     final currentUserId = ref.read(userIdProvider);
     final isGroupAdmin = currentUserId == group.adminId;
@@ -64,9 +69,24 @@ class VoteTile extends HookConsumerWidget {
                 4.0,
                 6.0,
                 0,
+                2.0,
+              ),
+              child: Text(
+                pollComment.title,
+                style: const TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                4.0,
+                6.0,
+                0,
                 8.0,
               ),
-              child: Text(pollComment.title),
+              child: Text(pollComment.description),
             ),
             VoteListCard(
               pollComment: pollComment,
@@ -78,20 +98,12 @@ class VoteTile extends HookConsumerWidget {
                 isGroupAdmin
                     ? Padding(
                         padding: const EdgeInsets.only(left: 4.0),
-                        child: TextButton(
-                          style: isDarkMode
-                              ? TextButton.styleFrom(
-                                  backgroundColor: AppColors.perano,
-                                  foregroundColor: AppColors.blackPanther,
-                                )
-                              : TextButton.styleFrom(
-                                  backgroundColor: AppColors.ebonyClay,
-                                  foregroundColor: AppColors.perano,
-                                ),
-                          child: const Text(Strings.confirmMeeting),
-                          onPressed: () {
-                            //TODO: do something 
-                          },
+                        child: VoteButton(
+                          isDarkMode: isDarkMode,
+                          pollComment: pollComment,
+                          index: index,
+                          polls: polls,
+                          poll: poll,
                         ),
                       )
                     : const SizedBox(),

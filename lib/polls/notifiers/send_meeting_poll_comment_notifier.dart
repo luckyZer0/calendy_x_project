@@ -15,6 +15,7 @@ class SendMeetingPollNotifier extends StateNotifier<IsLoading> {
 
   Future<bool> sendMeetingComment({
     required String title,
+    required String description,
     required UserId userId,
     required GroupId groupId,
     required List<MeetingPoll> meetingPoll,
@@ -24,6 +25,7 @@ class SendMeetingPollNotifier extends StateNotifier<IsLoading> {
 
     final meetingPollCommentPayload = MeetingPollPayload(
       title: title,
+      description: description,
       userId: userId,
       groupId: groupId,
       meetingPolls: meetingPoll,

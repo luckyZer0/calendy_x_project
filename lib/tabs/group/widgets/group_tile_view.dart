@@ -8,7 +8,7 @@ import 'package:calendy_x_project/comments/widgets/single_comment.dart';
 import 'package:calendy_x_project/common/animations/error_animation.dart';
 import 'package:calendy_x_project/common/animations/loading_animation.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
-import 'package:calendy_x_project/group_comments/group_comment_and_poll.dart';
+import 'package:calendy_x_project/group_comments_polls/views/group_comment_and_poll.dart';
 import 'package:calendy_x_project/tabs/group/models/group.dart';
 
 class GroupCardView extends ConsumerWidget {

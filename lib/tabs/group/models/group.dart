@@ -18,7 +18,7 @@ class Group {
   final String thumbnailStorageId;
   final String originalFileStorageId;
   final Map<GroupSettings, bool> groupSettings;
-  // final List<UserId> memberId;
+  final Iterable<UserId> memberId;
 
   Group({
     required this.groupId,
@@ -34,7 +34,7 @@ class Group {
         thumbnailUrl = json[GroupKey.thumbnailUrl],
         thumbnailStorageId = json[GroupKey.thumbnailStorageId],
         originalFileStorageId = json[GroupKey.originalFileStorageId],
-        // memberId = json[GroupKey.memberId],
+        memberId = List<String>.from(json[GroupKey.memberId]),
         groupSettings = {
           for (final entry in json[GroupKey.groupSettings].entries)
             GroupSettings.values.firstWhere(

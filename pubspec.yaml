@@ -60,6 +60,8 @@ dependencies:
   syncfusion_flutter_calendar: ^20.4.43
   flutter_speed_dial: ^6.2.0
   google_nav_bar: ^5.0.6
+  qr_flutter: ^4.0.0
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:

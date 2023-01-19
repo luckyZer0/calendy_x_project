@@ -1,4 +1,3 @@
-import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,17 +5,18 @@ import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
+import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
 import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
 import 'package:calendy_x_project/common/typedef/group_id.dart';
-import 'package:calendy_x_project/tabs/group/models/group.dart';
-import 'package:calendy_x_project/polls/widgets/poll_button.dart';
-import 'package:calendy_x_project/polls/widgets/poll_input.dart';
-import 'package:calendy_x_project/polls/widgets/poll_tile.dart';
 import 'package:calendy_x_project/polls/models/meeting_poll.dart';
 import 'package:calendy_x_project/polls/providers/date_time_poll_provider.dart';
 import 'package:calendy_x_project/polls/providers/send_meeting_poll_provider.dart';
+import 'package:calendy_x_project/polls/widgets/poll_button.dart';
+import 'package:calendy_x_project/polls/widgets/poll_input.dart';
+import 'package:calendy_x_project/polls/widgets/poll_tile.dart';
+import 'package:calendy_x_project/tabs/group/models/group.dart';
 
 class MeetingPollScreen extends StatefulHookConsumerWidget {
   final Group group;
@@ -34,6 +34,7 @@ class MeetingPollScreen extends StatefulHookConsumerWidget {
 
 class _MeetingPollViewState extends ConsumerState<MeetingPollScreen> {
   String? _title;
+  String? _description;
   String? _date;
   String? _time;
   final _formKey = GlobalKey<FormState>();
@@ -63,6 +64,11 @@ class _MeetingPollViewState extends ConsumerState<MeetingPollScreen> {
                 PollInput(
                   label: 'Appointment Title',
                   onSaved: (value) => _title = value,
+                ),
+                const SizedBox(height: 16),
+                PollInput(
+                  label: 'Description',
+                  onSaved: (value) => _description = value,
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -135,7 +141,7 @@ class _MeetingPollViewState extends ConsumerState<MeetingPollScreen> {
                               time: _time!,
                             ),
                           )) {
-                            snackBar('Duplicate Date and Time values',context);
+                            snackBar('Duplicate Date and Time values', context);
                           } else {
                             dateTimePoll.addPolls(
                               MeetingPoll(
@@ -177,10 +183,11 @@ class _MeetingPollViewState extends ConsumerState<MeetingPollScreen> {
                       await ref
                           .read(sendMeetingPollProvider.notifier)
                           .sendMeetingComment(
-                            title: _title!,
+                            title: _title ?? 'Untitled',
                             userId: userId,
                             groupId: widget.groupId,
                             meetingPoll: pollData,
+                            description: _description ?? 'No description',
                           );
                       if (!mounted) return;
                       Navigator.of(context).pop();

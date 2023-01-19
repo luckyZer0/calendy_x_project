@@ -1,7 +1,10 @@
 import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
 import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
+import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
+import 'package:calendy_x_project/group_comments_polls/models/popup_menu_item.dart';
 import 'package:calendy_x_project/polls/view/meeting_poll_screen.dart';
+import 'package:calendy_x_project/qr_code_and_scanner/view/qr_code_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -10,8 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:calendy_x_project/common/typedef/group_id.dart';
 import 'package:calendy_x_project/common/widgets/btm_nav_widget.dart';
 import 'package:calendy_x_project/common/widgets/nav_rail_widget.dart';
-import 'package:calendy_x_project/group_comments/widgets/group_comments_widget.dart';
-import 'package:calendy_x_project/group_comments/widgets/group_poll_widget.dart';
+import 'package:calendy_x_project/group_comments_polls/widgets/group_comments_widget.dart';
+import 'package:calendy_x_project/group_comments_polls/widgets/group_poll_widget.dart';
 import 'package:calendy_x_project/main/view_tabs/enum/tab_view_model.dart';
 import 'package:calendy_x_project/main/view_tabs/provider/tab_view_provider.dart';
 import 'package:calendy_x_project/tabs/group/models/group.dart';
@@ -33,9 +36,11 @@ class GroupCommentAndPoll extends StatefulHookConsumerWidget {
 class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ref.watch(themeModeProvider);
     final currentUserId = ref.read(userIdProvider);
     final isGroupAdmin = currentUserId == widget.group.adminId;
     final tabViewComment = ref.watch(tabViewCommentProvider);
+
     final List<Widget> widgets = [
       GroupCommentsView(
         group: widget.group,
@@ -46,6 +51,27 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
         groupId: widget.groupId,
       ),
     ];
+
+    final List<PopupMenuItemData> menuItems = [
+      PopupMenuItemData(
+        title: 'Share Group',
+        icon: Icons.share,
+        callback: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => QrCodeScreen(groupId: widget.group.groupId),
+            ),
+          );
+        },
+      ),
+      PopupMenuItemData(
+        title: 'Delete Group',
+        icon: Icons.delete,
+        callback: () {},
+      ),
+    ];
+
     return DismissKeyboardWidget(
       child: Scaffold(
         appBar: AppBar(
@@ -63,9 +89,23 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
           ),
           actions: [
             PopupMenuButton(
-              itemBuilder: (context) => [
-                //TODO: add share and delete group
-              ],
+              onSelected: (item) => item.callback(),
+              itemBuilder: (context) => menuItems.map((item) {
+                return PopupMenuItem<PopupMenuItemData>(
+                  value: item,
+                  child: Row(
+                    children: [
+                      Icon(
+                        item.icon,
+                        color:
+                            isDarkMode ? AppColors.white : AppColors.ebonyClay,
+                      ),
+                      const Spacer(),
+                      Text(item.title),
+                    ],
+                  ),
+                );
+              }).toList(),
             )
           ],
         ),

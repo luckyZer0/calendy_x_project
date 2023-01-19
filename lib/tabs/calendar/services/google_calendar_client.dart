@@ -1,18 +1,5 @@
-import 'dart:async';
-
-import 'package:calendy_x_project/common/auth/backends/authenticator.dart';
 import 'package:googleapis/calendar/v3.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-
-class GoogleCalendarClientNotifier
-    extends StateNotifier<List<GoogleCalendarClient>> {
-  GoogleCalendarClientNotifier(super.state);
-
-  void onRefresh(GoogleCalendarClient gCalendar) {
-    state = [...state, gCalendar];
-  }
-}
 
 class GoogleCalendarClient extends CalendarDataSource {
   final List<Event>? events;
@@ -80,25 +67,4 @@ class GoogleCalendarClient extends CalendarDataSource {
         runtimeType,
         events,
       ]);
-}
-
-Future<List<Event>> getGoogleEventsData() async {
-  final authenticator = Authenticator();
-
-  final List<Event> appointments = <Event>[];
-
-  if (authenticator.isAlreadyLoggedIn) {
-    final CalendarApi calendarAPI = await authenticator.googleHttpClient();
-    final Events calendarEvents = await calendarAPI.events.list("primary");
-
-    if (calendarEvents.items != null) {
-      for (Event event in calendarEvents.items!) {
-        if (event.start == null) {
-          continue;
-        }
-        appointments.add(event);
-      }
-    }
-  }
-  return appointments;
 }

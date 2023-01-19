@@ -12,11 +12,13 @@ import 'package:calendy_x_project/polls/models/meeting_poll.dart';
 class MeetingPollPayload extends MapView<String, dynamic> {
   MeetingPollPayload({
     required String title,
+    required String description,
     required UserId userId,
     required GroupId groupId,
     required Iterable<MeetingPoll> meetingPolls,
   }) : super({
           FirebaseFieldName.title: title,
+          FirebaseFieldName.description: description,
           FirebaseFieldName.userId: userId,
           FirebaseFieldName.groupId: groupId,
           FirebaseFieldName.createdAt: FieldValue.serverTimestamp(),

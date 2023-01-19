@@ -1,21 +1,21 @@
-import 'dart:collection';
+// import 'dart:collection';
 
 
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 
-import 'package:calendy_x_project/common/constants/firebase_field_name.dart';
-import 'package:calendy_x_project/common/typedef/user_id.dart';
+// import 'package:calendy_x_project/common/constants/firebase_field_name.dart';
+// import 'package:calendy_x_project/common/typedef/user_id.dart';
 
-@immutable
-class JoinGroupPayload extends MapView<String, dynamic> {
-  JoinGroupPayload({
-    // required GroupId groupId,
-    required List<UserId> members,
-  }) : super({
-    // FirebaseFieldName.groupId: groupId,
-    FirebaseFieldName.memberId: members,
-  });
-}
+// @immutable
+// class JoinGroupPayload extends MapView<String, dynamic> {
+//   JoinGroupPayload({
+//     // required GroupId groupId,
+//     required List<UserId> members,
+//   }) : super({
+//     // FirebaseFieldName.groupId: groupId,
+//     FirebaseFieldName.memberId: members,
+//   });
+// }
 
 // class JoinGroup extends Equatable {
 //   final GroupId groupId;

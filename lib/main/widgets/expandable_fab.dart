@@ -3,7 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/create_new_group/view/create_new_group.dart';
-import 'package:calendy_x_project/join_group/view/join_group_screen.dart';
+import 'package:calendy_x_project/join_group/views/join_group_screen.dart';
 
 class ExpandableFab extends StatefulWidget {
   const ExpandableFab({

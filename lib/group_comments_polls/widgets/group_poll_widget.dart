@@ -1,17 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:calendy_x_project/comments/models/group_comment_request.dart';
 import 'package:calendy_x_project/common/animations/empty_contents_with_text_animation_view.dart';
 import 'package:calendy_x_project/common/animations/error_animation.dart';
 import 'package:calendy_x_project/common/animations/loading_animation.dart';
 import 'package:calendy_x_project/common/constants/strings.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
 import 'package:calendy_x_project/common/typedef/group_id.dart';
+import 'package:calendy_x_project/group_comments_polls/widgets/vote_tile.dart';
 import 'package:calendy_x_project/login/providers/user_info_provider.dart';
-import 'package:calendy_x_project/comments/models/group_comment_request.dart';
-import 'package:calendy_x_project/group_comments/widgets/vote_tile.dart';
-import 'package:calendy_x_project/tabs/group/models/group.dart';
 import 'package:calendy_x_project/polls/providers/group_poll_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:calendy_x_project/tabs/group/models/group.dart';
 
 class GroupPollView extends HookConsumerWidget {
   final Group group;
@@ -59,6 +60,9 @@ class GroupPollView extends HookConsumerWidget {
                             userInfo: userInfo,
                             pollComment: poll,
                             group: group,
+                            index: index,
+                            polls: polls,
+                            poll: poll.meetingPolls.first,
                           ),
                         ],
                       ),

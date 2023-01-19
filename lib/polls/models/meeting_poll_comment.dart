@@ -12,6 +12,7 @@ import 'package:calendy_x_project/polls/models/meeting_poll.dart';
 class MeetingPollComment extends Equatable {
   final String pollId;
   final String title;
+  final String description;
   final UserId userId;
   final GroupId groupId;
   final List<MeetingPoll> meetingPolls;
@@ -22,6 +23,7 @@ class MeetingPollComment extends Equatable {
   const MeetingPollComment({
     required this.pollId,
     required this.title,
+    required this.description,
     required this.userId,
     required this.groupId,
     required this.meetingPolls,
@@ -39,6 +41,7 @@ class MeetingPollComment extends Equatable {
     return MeetingPollComment(
       pollId: pollId,
       title: json[FirebaseFieldName.title],
+      description: json[FirebaseFieldName.description],
       userId: json[FirebaseFieldName.userId],
       groupId: json[FirebaseFieldName.groupId],
       meetingPolls: meetingPolls,
@@ -54,6 +57,7 @@ class MeetingPollComment extends Equatable {
         userId,
         groupId,
         title,
+        description,
         meetingPolls,
         dateSorting,
         sortByCreatedAt,
