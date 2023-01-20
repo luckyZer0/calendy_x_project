@@ -30,7 +30,7 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
         child: Column(
           children: [
             const Padding(
-              padding: EdgeInsets.symmetric(vertical: 14.0),
+              padding: EdgeInsets.only(top: 50.0, bottom: 14.0),
               child: Text(
                 'QR Code',
                 style: TextStyle(
@@ -39,9 +39,12 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
                 ),
               ),
             ),
-            QrImage(
-              data: widget.groupId,
-              backgroundColor: AppColors.white,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: QrImage(
+                data: widget.groupId,
+                backgroundColor: AppColors.white,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),

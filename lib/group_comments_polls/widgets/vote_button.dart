@@ -77,7 +77,8 @@ class _VoteButtonState extends ConsumerState<VoteButton> {
         // }
         final emails = userInfo!.map((user) => user.email).toList();
 
-        List<EventAttendee> attendees = emails.map((email) => EventAttendee()..email = email).toList();
+        List<EventAttendee> attendees =
+            emails.map((email) => EventAttendee()..email = email).toList();
 
         // print(emails);
         voteCount(String pollId) {
@@ -125,6 +126,8 @@ class _VoteButtonState extends ConsumerState<VoteButton> {
           startDate: dateTime,
           startTime: timeOfDay,
           attendeesEmails: attendees,
+          hasConferenceSupport: true,
+          shouldNotifyAttendees: true,
         );
       },
       child: Text(
