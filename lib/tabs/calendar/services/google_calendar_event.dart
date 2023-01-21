@@ -1,5 +1,6 @@
-import 'package:calendy_x_project/common/auth/backends/authenticator.dart';
 import 'package:googleapis/calendar/v3.dart';
+
+import 'package:calendy_x_project/common/auth/backends/authenticator.dart';
 
 Future<List<Event>> getGoogleEventsData() async {
   final authenticator = Authenticator();
@@ -20,6 +21,7 @@ Future<List<Event>> getGoogleEventsData() async {
         appointments.add(event);
       }
     }
+
     if (holidayEvents.items != null) {
       for (Event event in holidayEvents.items!) {
         if (event.start == null) {

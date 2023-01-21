@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/calendar/v3.dart';
 import 'package:uuid/uuid.dart';
 
-Future<Map<String, String>> insertGoogleCalendar({
+Future<Map<String, String>> insertGoogleCalendarEvent({
   required String title,
   required String description,
   required DateTime startDate,

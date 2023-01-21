@@ -1,13 +1,14 @@
-import 'package:calendy_x_project/common/animations/error_animation.dart';
-import 'package:calendy_x_project/common/animations/loading_animation.dart';
-import 'package:calendy_x_project/common/auth/services/google_calendar_event.dart';
-import 'package:calendy_x_project/common/theme/app_colors.dart';
-import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
-import 'package:calendy_x_project/tabs/calendar/services/google_calendar_client.dart';
-import 'package:calendy_x_project/tabs/calendar/providers/google_calendar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+
+import 'package:calendy_x_project/common/animations/error_animation.dart';
+import 'package:calendy_x_project/common/animations/loading_animation.dart';
+import 'package:calendy_x_project/common/theme/app_colors.dart';
+import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
+import 'package:calendy_x_project/tabs/calendar/providers/google_calendar_provider.dart';
+import 'package:calendy_x_project/tabs/calendar/services/google_calendar_client.dart';
+import 'package:calendy_x_project/tabs/calendar/services/google_calendar_event.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
   const CalendarScreen({super.key});

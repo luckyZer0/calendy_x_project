@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 import 'package:calendy_x_project/common/constants/strings.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
-import 'package:calendy_x_project/group_comments_polls/services/send_calendar_event.dart';
+import 'package:calendy_x_project/group_comments_polls/services/calendar_event.dart';
 import 'package:calendy_x_project/login/providers/all_user_info_provider.dart';
 import 'package:calendy_x_project/polls/models/meeting_poll.dart';
 import 'package:calendy_x_project/polls/models/meeting_poll_comment.dart';
@@ -114,13 +114,15 @@ class _VoteButtonState extends ConsumerState<VoteButton> {
             highestPollId = tiedPollIds.first;
           }
         }
+        
+        highestPollId;
 
         final dateTime = DateFormat.yMMMd().parse(widget.poll.date);
         final format = DateFormat.jm();
         final timeOfDay =
             TimeOfDay.fromDateTime(format.parse(widget.poll.time));
 
-        insertGoogleCalendar(
+        insertGoogleCalendarEvent(
           title: widget.pollComment.title,
           description: widget.pollComment.description,
           startDate: dateTime,
