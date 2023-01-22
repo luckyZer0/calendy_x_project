@@ -1,6 +1,7 @@
 import 'package:calendy_x_project/comments/providers/delete_comment_provider.dart';
 import 'package:calendy_x_project/comments/providers/send_comment_provider.dart';
 import 'package:calendy_x_project/common/auth/providers/auth_state_provider.dart';
+import 'package:calendy_x_project/group_comments_polls/providers/button_pressed_notifier_provider.dart';
 import 'package:calendy_x_project/image_upload/providers/image_uploader_provider.dart';
 import 'package:calendy_x_project/polls/providers/send_meeting_poll_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,11 +14,13 @@ final isLoadingProvider = Provider<bool>(
     final isSendingComment = ref.watch(sendCommentProvider);
     final isDeletingComment = ref.watch(deleteCommentProvider);
     final isSendingPoll = ref.watch(sendMeetingPollProvider);
+    final isPressed = ref.watch(buttonPressedNotifierProvider);
 
     return authState.isLoading ||
         isUploadingImage ||
         isSendingComment ||
         isDeletingComment ||
-        isSendingPoll;
+        isSendingPoll ||
+        isPressed;
   },
 );

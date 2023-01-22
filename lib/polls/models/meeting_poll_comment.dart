@@ -7,10 +7,11 @@ import 'package:calendy_x_project/common/enums/date_sorting.dart';
 import 'package:calendy_x_project/common/typedef/group_id.dart';
 import 'package:calendy_x_project/common/typedef/user_id.dart';
 import 'package:calendy_x_project/polls/models/meeting_poll.dart';
+import 'package:calendy_x_project/polls/typedefs/poll_id.dart';
 
 @immutable
 class MeetingPollComment extends Equatable {
-  final String pollId;
+  final PollId pollId;
   final String title;
   final String description;
   final UserId userId;

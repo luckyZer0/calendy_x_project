@@ -16,7 +16,6 @@ import 'package:calendy_x_project/tabs/group/models/group.dart';
 class VoteTile extends HookConsumerWidget {
   final Group group;
   final AsyncValue<UserInfoModel> userInfo;
-  // final MeetingPoll poll;
   final MeetingPollComment pollComment;
   final int index;
   final Iterable<MeetingPollComment> polls;
@@ -101,7 +100,6 @@ class VoteTile extends HookConsumerWidget {
                         child: VoteButton(
                           isDarkMode: isDarkMode,
                           pollComment: pollComment,
-                          index: index,
                           polls: polls,
                           poll: poll,
                         ),

@@ -1,4 +1,5 @@
 import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
+import 'package:calendy_x_project/common/enums/multi_bool.dart';
 import 'package:calendy_x_project/join_group/notifiers/join_group_notifier.dart';
 import 'package:calendy_x_project/join_group/widgets/horizontal_line_with_text.dart';
 import 'package:flutter/material.dart';

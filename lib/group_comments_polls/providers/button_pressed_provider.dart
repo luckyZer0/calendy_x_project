@@ -1,24 +1,24 @@
+import 'package:calendy_x_project/group_comments_polls/models/button_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:calendy_x_project/common/constants/firebase_collection_name.dart';
 import 'package:calendy_x_project/common/constants/firebase_field_name.dart';
-import 'package:calendy_x_project/polls/models/voter_poll.dart';
-import 'package:calendy_x_project/polls/models/voter_poll_request.dart';
+import 'package:calendy_x_project/group_comments_polls/models/button_state_request.dart';
 
-final votePollProvider =
-    FutureProvider.family.autoDispose<bool, VoterPollRequest>(
+final buttonPressedProvider =
+    FutureProvider.family.autoDispose<bool, ButtonStateRequest>(
   (ref, request) async {
-    
     final query = FirebaseFirestore.instance
-        .collection(FirebaseCollectionName.votes)
+        .collection(FirebaseCollectionName.buttonState)
         .where(FirebaseFieldName.pollId, isEqualTo: request.pollId)
-        .where(FirebaseFieldName.userId, isEqualTo: request.voteBy)
+        .where(FirebaseFieldName.userId, isEqualTo: request.userId)
         .get();
 
-    final hasVote = await query.then((snapshot) => snapshot.docs.isNotEmpty);
+    final hasButtonState =
+        await query.then((snapshot) => snapshot.docs.isNotEmpty);
 
-    if (hasVote) {
+    if (hasButtonState) {
       try {
         await query.then((snapshot) async {
           for (final doc in snapshot.docs) {
@@ -30,16 +30,16 @@ final votePollProvider =
         return false;
       }
     } else {
-      final voterPoll = VoterPoll(
+      final buttonState = ButtonState(
         pollId: request.pollId,
-        voteBy: request.voteBy,
-        date: DateTime.now(),
+        userId: request.userId,
+        buttonPressed: request.buttonPressed,
       );
 
       try {
         await FirebaseFirestore.instance
-            .collection(FirebaseCollectionName.votes)
-            .add(voterPoll);
+            .collection(FirebaseCollectionName.buttonState)
+            .add(buttonState);
         return true;
       } catch (_) {
         return false;

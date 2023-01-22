@@ -11,6 +11,7 @@ class FirebaseCollectionName {
   static const votes = 'votes';
   static const images = 'images';
   static const meetingPoll = 'meetings';
+  static const buttonState = 'button_states';
 
   const FirebaseCollectionName._();
 }

@@ -7,6 +7,7 @@ class FirebaseFieldName {
   static const title = 'title';
   static const userId = 'uid';
   static const memberId = 'member_id';
+  static const buttonStatus = 'button_status';
   static const photoURL = 'photo_url';
   static const comment = 'comment';
   static const createdAt = 'created_at';
@@ -28,6 +29,8 @@ class FirebaseFieldName {
   static const hasConferencingSupport = 'has_conferencing';
   static const startTimeInEpoch = 'start';
   static const endTimeInEpoch = 'end';
+  static const buttonPressed = 'button_pressed';
+  static const buttonNotPressed = 'button_not_pressed';
 
   const FirebaseFieldName._();
 }

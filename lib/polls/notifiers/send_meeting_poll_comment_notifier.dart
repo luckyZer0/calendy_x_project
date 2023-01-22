@@ -29,6 +29,7 @@ class SendMeetingPollNotifier extends StateNotifier<IsLoading> {
       userId: userId,
       groupId: groupId,
       meetingPolls: meetingPoll,
+      buttonPressed: false,
     );
 
     try {

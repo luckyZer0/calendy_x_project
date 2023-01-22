@@ -16,6 +16,7 @@ class MeetingPollPayload extends MapView<String, dynamic> {
     required UserId userId,
     required GroupId groupId,
     required Iterable<MeetingPoll> meetingPolls,
+    required bool buttonPressed,
   }) : super({
           FirebaseFieldName.title: title,
           FirebaseFieldName.description: description,
@@ -24,5 +25,6 @@ class MeetingPollPayload extends MapView<String, dynamic> {
           FirebaseFieldName.createdAt: FieldValue.serverTimestamp(),
           FirebaseFieldName.meetingPolls:
               meetingPolls.map((m) => m.toJson()).toList(),
+          FirebaseFieldName.buttonPressed: buttonPressed,
         });
 }
