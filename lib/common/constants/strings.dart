@@ -22,6 +22,7 @@ class Strings {
   static const noCommentsYet =
       'Nobody has commented on this post yet. You can change that though, and be the first person who comments!';
   static const noPollsYet = 'Create New Polls!';
+  static const group = 'Group';
 
   // log out
   static const logOut = 'Log out';

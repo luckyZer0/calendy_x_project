@@ -1,3 +1,4 @@
+import 'package:calendy_x_project/group_comments_polls/providers/button_pressed_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,6 +23,8 @@ class VoteListCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final buttonStateCounter =
+        ref.watch(buttonStatePressedProvider(pollComment.pollId)).value;
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
@@ -32,21 +35,24 @@ class VoteListCard extends ConsumerWidget {
         return Card(
           color: isDarkMode ? AppColors.jumbo : AppColors.white,
           child: InkWell(
-            onTap: () {
-              final id = meetingPoll.pollId;
-              final userId = ref.read(userIdProvider);
+            onTap: buttonStateCounter == 0
+                ? () {
+                    final id = meetingPoll.pollId;
+                    final userId = ref.read(userIdProvider);
 
-              if (userId == null) {
-                return;
-              }
+                    if (userId == null) {
+                      return;
+                    }
 
-              final voteRequest = VoterPollRequest(
-                pollId: id,
-                voteBy: userId,
-              );
+                    final voteRequest = VoterPollRequest(
+                      pollId: id,
+                      voteBy: userId,
+                      groupId: pollComment.groupId,
+                    );
 
-              ref.read(votePollProvider(voteRequest));
-            },
+                    ref.read(votePollProvider(voteRequest));
+                  }
+                : null,
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 6.0,

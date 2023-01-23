@@ -131,6 +131,7 @@ class _VoteButtonState extends ConsumerState<VoteButton> {
                   pollId: widget.pollComment.pollId,
                   userId: widget.polls.first.userId,
                   buttonPressed: _buttonPressed,
+                  groupId: widget.polls.first.groupId,
                 );
           }
         },

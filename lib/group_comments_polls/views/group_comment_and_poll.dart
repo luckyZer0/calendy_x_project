@@ -1,10 +1,14 @@
 import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
+import 'package:calendy_x_project/common/constants/strings.dart';
+import 'package:calendy_x_project/common/dialogs/delete_dialog.dart';
+import 'package:calendy_x_project/common/dialogs/extensions/alert_dialog_extension.dart';
 import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
 import 'package:calendy_x_project/group_comments_polls/models/popup_menu_item.dart';
 import 'package:calendy_x_project/polls/view/meeting_poll_screen.dart';
 import 'package:calendy_x_project/qr_code_and_scanner/view/qr_code_screen.dart';
+import 'package:calendy_x_project/tabs/group/providers/delete_group_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -68,7 +72,22 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
       PopupMenuItemData(
         title: 'Delete Group',
         icon: Icons.delete,
-        callback: () {},
+        callback: () async {
+          final title = widget.group.title;
+          final shouldDeleteGroup =
+              await DeleteDialog(titleOfObjectToDelete: '${Strings.group}: $title')
+                  .present(context)
+                  .then((shouldDelete) => shouldDelete ?? false);
+          if (shouldDeleteGroup) {
+            await ref
+                .read(deleteGroupProvider.notifier)
+                .deleteGroup(group: widget.group);
+            if (mounted) {
+              Navigator.of(context).pop();
+            }
+
+          }
+        },
       ),
     ];
 
@@ -87,27 +106,30 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
               Text(widget.group.title),
             ],
           ),
-          actions: [
-            PopupMenuButton(
-              onSelected: (item) => item.callback(),
-              itemBuilder: (context) => menuItems.map((item) {
-                return PopupMenuItem<PopupMenuItemData>(
-                  value: item,
-                  child: Row(
-                    children: [
-                      Icon(
-                        item.icon,
-                        color:
-                            isDarkMode ? AppColors.white : AppColors.ebonyClay,
-                      ),
-                      const Spacer(),
-                      Text(item.title),
-                    ],
-                  ),
-                );
-              }).toList(),
-            )
-          ],
+          actions: isGroupAdmin
+              ? [
+                  PopupMenuButton(
+                    onSelected: (item) => item.callback(),
+                    itemBuilder: (context) => menuItems.map((item) {
+                      return PopupMenuItem<PopupMenuItemData>(
+                        value: item,
+                        child: Row(
+                          children: [
+                            Icon(
+                              item.icon,
+                              color: isDarkMode
+                                  ? AppColors.white
+                                  : AppColors.ebonyClay,
+                            ),
+                            const Spacer(),
+                            Text(item.title),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  )
+                ]
+              : null,
         ),
         body: Row(
           children: [

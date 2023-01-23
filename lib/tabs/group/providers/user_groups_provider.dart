@@ -17,12 +17,10 @@ final userGroupsProvider = StreamProvider.autoDispose<Iterable<Group>>(
     // by default, first event get an empty array
     controller.onListen = () => controller.sink.add([]);
 
-    // TODO: modify the where() method to check for members
     // create a subscription to firebase
     final sub = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.groups)
         .orderBy(FirebaseFieldName.createdAt)
-        // .where(GroupKey.userId, isEqualTo: userId)
         .where(GroupKey.memberId, arrayContains: userId)
         .snapshots()
         .listen((snapshot) {

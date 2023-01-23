@@ -33,7 +33,7 @@ final votePollProvider =
       final voterPoll = VoterPoll(
         pollId: request.pollId,
         voteBy: request.voteBy,
-        date: DateTime.now(),
+        date: DateTime.now(), groupId: request.groupId,
       );
 
       try {

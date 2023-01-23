@@ -1,4 +1,9 @@
+import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
+import 'package:calendy_x_project/common/constants/strings.dart';
+import 'package:calendy_x_project/common/dialogs/delete_dialog.dart';
+import 'package:calendy_x_project/common/dialogs/extensions/alert_dialog_extension.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
+import 'package:calendy_x_project/tabs/group/providers/delete_group_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,6 +26,8 @@ class GroupCardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkMode = ref.watch(themeModeProvider);
+    final currentUserId = ref.read(userIdProvider);
+    final isGroupAdmin = currentUserId == groups.first.adminId;
     return ListView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: 8.0),
@@ -44,6 +51,18 @@ class GroupCardView extends ConsumerWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: InkWell(
+            onLongPress: () async {
+              final title = group.title;
+              final shouldDeleteGroup = await DeleteDialog(
+                      titleOfObjectToDelete: '${Strings.group}: $title')
+                  .present(context)
+                  .then((shouldDelete) => shouldDelete ?? false);
+              if (shouldDeleteGroup) {
+                await ref
+                    .read(deleteGroupProvider.notifier)
+                    .deleteGroup(group: group);
+              }
+            },
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(

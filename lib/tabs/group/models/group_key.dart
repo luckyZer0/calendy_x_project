@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart' show immutable;
 
-// TODO: need to add group url?
-
 @immutable
 class GroupKey {
   static const userId = 'uid';

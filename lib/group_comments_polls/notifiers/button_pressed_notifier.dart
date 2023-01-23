@@ -1,12 +1,13 @@
-import 'package:calendy_x_project/common/constants/firebase_field_name.dart';
-import 'package:calendy_x_project/common/typedef/user_id.dart';
-import 'package:calendy_x_project/group_comments_polls/models/button_state_request.dart';
+import 'package:calendy_x_project/common/typedef/group_id.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:calendy_x_project/common/constants/firebase_collection_name.dart';
+import 'package:calendy_x_project/common/constants/firebase_field_name.dart';
 import 'package:calendy_x_project/common/enums/multi_bool.dart';
 import 'package:calendy_x_project/common/typedef/is_loading.dart';
+import 'package:calendy_x_project/common/typedef/user_id.dart';
+import 'package:calendy_x_project/group_comments_polls/models/button_state_request.dart';
 import 'package:calendy_x_project/polls/models/meeting_poll_comment.dart';
 
 class ButtonPressedNotifier extends StateNotifier<IsLoading> {
@@ -18,6 +19,7 @@ class ButtonPressedNotifier extends StateNotifier<IsLoading> {
   Future<MultiBool> sendButtonState({
     required String pollId,
     required UserId userId,
+    required GroupId groupId,
     required bool buttonPressed,
   }) async {
     isLoading = true;
@@ -26,6 +28,7 @@ class ButtonPressedNotifier extends StateNotifier<IsLoading> {
       pollId: pollId,
       userId: userId,
       buttonPressed: buttonPressed,
+      groupId: groupId,
     );
 
     try {
