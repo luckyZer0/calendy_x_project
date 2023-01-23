@@ -1,7 +1,3 @@
-import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
-import 'package:calendy_x_project/common/enums/multi_bool.dart';
-import 'package:calendy_x_project/join_group/notifiers/join_group_notifier.dart';
-import 'package:calendy_x_project/join_group/widgets/horizontal_line_with_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,11 +6,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
 import 'package:calendy_x_project/common/constants/dimensions.dart';
 import 'package:calendy_x_project/common/constants/strings.dart';
+import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
 import 'package:calendy_x_project/common/dismiss_keyboard/dismiss_keyboard.dart';
+import 'package:calendy_x_project/common/enums/multi_bool.dart';
 import 'package:calendy_x_project/common/extensions/screen_size_extension.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
 import 'package:calendy_x_project/join_group/providers/join_group_notifier_provider.dart';
+import 'package:calendy_x_project/join_group/widgets/horizontal_line_with_text.dart';
 
 class JoinGroupScreen extends StatefulHookConsumerWidget {
   const JoinGroupScreen({
