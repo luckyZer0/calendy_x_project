@@ -68,7 +68,6 @@ class DeleteGroupStateNotifier extends StateNotifier<IsLoading> {
       }
       return true;
     } catch (e) {
-      print(group.groupId);
       return false;
     } finally {
       isLoading = false;
