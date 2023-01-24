@@ -34,6 +34,7 @@ class App extends ConsumerWidget {
       enabled: false,
       // enabled: !kReleaseMode,
       builder: (BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
         // useInheritedMediaQuery: true,
         title: 'Calendy',
         theme: lightTheme,

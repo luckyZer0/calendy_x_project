@@ -1,5 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:calendy_x_project/common/auth/providers/user_id_provider.dart';
 import 'package:calendy_x_project/common/constants/strings.dart';
 import 'package:calendy_x_project/common/dialogs/snackbar/snackbar_dialog.dart';
@@ -14,11 +20,6 @@ import 'package:calendy_x_project/image_upload/models/thumbnail_request.dart';
 import 'package:calendy_x_project/image_upload/providers/image_uploader_provider.dart';
 import 'package:calendy_x_project/tabs/group/models/group_settings.dart';
 import 'package:calendy_x_project/tabs/group/providers/group_settings_provider.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CreateNewGroup extends StatefulHookConsumerWidget {
   const CreateNewGroup({
@@ -47,8 +48,6 @@ class _CreateNewGroupState extends ConsumerState<CreateNewGroup> {
       snackBar('An Error Occurred', context);
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -109,15 +108,10 @@ class _CreateNewGroupState extends ConsumerState<CreateNewGroup> {
                               size: 100,
                             ),
                           )
-                        : kIsWeb
-                            ? CircleAvatar(
-                                radius: 90,
-                                backgroundImage: NetworkImage(_imageFile!.path),
-                              )
-                            : ImageThumbnailView(
-                                thumbnailRequest:
-                                    ThumbnailRequest(file: _imageFile!),
-                              ),
+                        : CircleAvatar(
+                            radius: 90,
+                            backgroundImage: FileImage(_imageFile!),
+                          ),
                   ],
                 ),
               ),
@@ -191,4 +185,3 @@ class _CreateNewGroupState extends ConsumerState<CreateNewGroup> {
     );
   }
 }
-

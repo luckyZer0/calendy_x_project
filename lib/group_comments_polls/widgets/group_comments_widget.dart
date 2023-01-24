@@ -115,25 +115,6 @@ class GroupCommentsView extends HookConsumerWidget {
                           },
                         ),
                       ),
-                      // isGroupAdmin
-                      //     ? Padding(
-                      //         padding: const EdgeInsets.only(left: 10.0),
-                      //         child: IconButton(
-                      //             onPressed: () {
-                      //               Navigator.push(
-                      //                 context,
-                      //                 MaterialPageRoute(
-                      //                   builder: (context) => MeetingPollScreen(
-                      //                     groupId: groupId,
-                      //                     group: group,
-                      //                   ),
-                      //                 ),
-                      //               );
-                      //             },
-                      //             icon: const FaIcon(
-                      //                 FontAwesomeIcons.calendarPlus)),
-                      //       )
-                      //     : const SizedBox(),
                     ],
                   ),
                 ),

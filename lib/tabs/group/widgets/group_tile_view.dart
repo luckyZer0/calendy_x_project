@@ -27,13 +27,14 @@ class GroupCardView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkMode = ref.watch(themeModeProvider);
     final currentUserId = ref.read(userIdProvider);
-    final isGroupAdmin = currentUserId == groups.first.adminId;
+
     return ListView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: 8.0),
       itemCount: groups.length,
       itemBuilder: (context, index) {
         final group = groups.elementAt(index);
+        final isGroupAdmin = currentUserId == group.adminId;
         final request = GroupCommentRequest(
           groupId: group.groupId,
           limit: 1,
@@ -51,18 +52,20 @@ class GroupCardView extends ConsumerWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: InkWell(
-            onLongPress: () async {
-              final title = group.title;
-              final shouldDeleteGroup = await DeleteDialog(
-                      titleOfObjectToDelete: '${Strings.group}: $title')
-                  .present(context)
-                  .then((shouldDelete) => shouldDelete ?? false);
-              if (shouldDeleteGroup) {
-                await ref
-                    .read(deleteGroupProvider.notifier)
-                    .deleteGroup(group: group);
-              }
-            },
+            onLongPress: isGroupAdmin
+                ? () async {
+                    final title = group.title;
+                    final shouldDeleteGroup = await DeleteDialog(
+                            titleOfObjectToDelete: '${Strings.group}: $title')
+                        .present(context)
+                        .then((shouldDelete) => shouldDelete ?? false);
+                    if (shouldDeleteGroup) {
+                      await ref
+                          .read(deleteGroupProvider.notifier)
+                          .deleteGroup(group: group);
+                    }
+                  }
+                : null,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
