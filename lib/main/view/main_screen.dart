@@ -78,36 +78,36 @@ class _MainViewState extends ConsumerState<MainScreen> {
               selectedIndex: tabView.index,
               onTapped: (index) => ref
                   .read(tabViewProvider.notifier)
-                  .update((state) => ViewTab.values[index]), destinations: const [NavigationRailDestination(
-              icon: Icon(
-                Icons.calendar_month,
-              ),
-              label: Text(
-                'Calendar',
-                style: TextStyle(
+                  .update((state) => ViewTab.values[index]),
+              destinations: const [
+                NavigationRailDestination(
+                  icon: Icon(
+                    Icons.calendar_month,
+                  ),
+                  label: Text(
+                    'Calendar',
+                    style: TextStyle(),
+                  ),
                 ),
-              ),
-            ),
-            NavigationRailDestination(
-              icon: Icon(
-                Icons.groups,
-              ),
-              label: Text(
-                'Group',
-                style: TextStyle(
+                NavigationRailDestination(
+                  icon: Icon(
+                    Icons.groups,
+                  ),
+                  label: Text(
+                    'Group',
+                    style: TextStyle(),
+                  ),
                 ),
-              ),
-            ),
-            NavigationRailDestination(
-              icon: Icon(
-                Icons.person,
-              ),
-              label: Text(
-                'Profile',
-                style: TextStyle(
+                NavigationRailDestination(
+                  icon: Icon(
+                    Icons.person,
+                  ),
+                  label: Text(
+                    'Profile',
+                    style: TextStyle(),
+                  ),
                 ),
-              ),
-            ),],
+              ],
             ),
           Expanded(
             child: IndexedStack(
@@ -145,9 +145,7 @@ class _MainViewState extends ConsumerState<MainScreen> {
               )
             : const SizedBox(),
       ),
-      floatingActionButton: tabView.index == 1
-          ? const ExpandableFab()
-          : null,
+      floatingActionButton: tabView.index == 1 ? const ExpandableFab() : null,
     );
   }
 }
