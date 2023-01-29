@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:calendy_x_project/group_comments_polls/providers/selected_calendar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:googleapis/calendar/v3.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -125,6 +126,15 @@ class _VoteButtonState extends ConsumerState<VoteButton> {
                   hasConferenceSupport: true,
                   shouldNotifyAttendees: true,
                 );
+
+                ref.read(selectedCalendarProvider.notifier).selectedCalendar(
+                      title: widget.pollComment.title,
+                      description: widget.pollComment.description,
+                      date: dateTime.toString(),
+                      time: timeOfDay.toString(),
+                      groupId: widget.pollComment.groupId,
+                      meetingId: widget.pollComment.pollId,
+                    );
 
                 _buttonPressed = !_buttonPressed;
                 ref
