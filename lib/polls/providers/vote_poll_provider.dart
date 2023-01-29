@@ -9,7 +9,6 @@ import 'package:calendy_x_project/polls/models/voter_poll_request.dart';
 final votePollProvider =
     FutureProvider.family.autoDispose<bool, VoterPollRequest>(
   (ref, request) async {
-    
     final query = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.votes)
         .where(FirebaseFieldName.pollId, isEqualTo: request.pollId)
@@ -33,7 +32,9 @@ final votePollProvider =
       final voterPoll = VoterPoll(
         pollId: request.pollId,
         voteBy: request.voteBy,
-        date: DateTime.now(), groupId: request.groupId,
+        date: DateTime.now(),
+        groupId: request.groupId,
+        meetingId: request.meetingId,
       );
 
       try {

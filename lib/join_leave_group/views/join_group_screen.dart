@@ -12,8 +12,8 @@ import 'package:calendy_x_project/common/enums/multi_bool.dart';
 import 'package:calendy_x_project/common/extensions/screen_size_extension.dart';
 import 'package:calendy_x_project/common/theme/app_colors.dart';
 import 'package:calendy_x_project/common/theme/providers/theme_provider.dart';
-import 'package:calendy_x_project/join_group/providers/join_group_notifier_provider.dart';
-import 'package:calendy_x_project/join_group/widgets/horizontal_line_with_text.dart';
+import 'package:calendy_x_project/join_leave_group/providers/join_group_notifier_provider.dart';
+import 'package:calendy_x_project/join_leave_group/widgets/horizontal_line_with_text.dart';
 
 class JoinGroupScreen extends StatefulHookConsumerWidget {
   const JoinGroupScreen({

@@ -107,7 +107,11 @@ class GroupCardView extends ConsumerWidget {
                         const SizedBox(height: 4.0),
                         postWIthComments.when(
                           data: (comment) {
-                            return SingleComment(comments: comment.comments);
+                            if (group.allowsComments) {
+                              return SingleComment(comments: comment.comments);
+                            } else {
+                              return const SizedBox();
+                            }
                           },
                           error: (error, stackTrace) => const ErrorAnimation(),
                           loading: () =>

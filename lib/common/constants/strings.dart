@@ -13,6 +13,7 @@ class Strings {
   static const confirmMeeting = 'Confirm Meeting';
   static const loading = 'Loading...';
   static const delete = 'Delete';
+  static const leave = 'Leave';
   static const create = 'Create';
   static const createNewGroup = 'Create New Group';
   static const joinGroup = 'Join Group';
@@ -22,6 +23,7 @@ class Strings {
   static const noCommentsYet =
       'Nobody has commented on this post yet. You can change that though, and be the first person who comments!';
   static const noPollsYet = 'Create New Polls!';
+  static const leaveGroup = 'Leave Group';
   static const group = 'Group';
 
   // log out

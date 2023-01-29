@@ -1,3 +1,5 @@
+import 'package:calendy_x_project/common/dialogs/leave_dialog.dart';
+import 'package:calendy_x_project/join_leave_group/providers/leave_group_notifier_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -48,13 +50,11 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
     bool checkIf() {
       if (isGroupAdmin && widget.group.allowsComments) {
         return tabViewComment.index == 1;
-      }  else if (!isGroupAdmin && widget.group.allowsComments) {
+      } else if (!isGroupAdmin && widget.group.allowsComments) {
         return tabViewComment.index == 1;
-      } 
-      else if (!isGroupAdmin && !widget.group.allowsComments) {
+      } else if (!isGroupAdmin && !widget.group.allowsComments) {
         return tabViewComment.index == 0;
-      } 
-      else {
+      } else {
         return tabViewComment.index == 0;
       }
     }
@@ -84,24 +84,23 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
         },
       ),
       PopupMenuItemData(
-        title: 'Delete Group',
-        icon: Icons.delete,
-        callback: () async {
-          final title = widget.group.title;
-          final shouldDeleteGroup = await DeleteDialog(
-                  titleOfObjectToDelete: '${Strings.group}: $title')
-              .present(context)
-              .then((shouldDelete) => shouldDelete ?? false);
-          if (shouldDeleteGroup) {
-            await ref
-                .read(deleteGroupProvider.notifier)
-                .deleteGroup(group: widget.group);
-            if (mounted) {
-              Navigator.of(context).pop();
+          title: 'Delete Group',
+          icon: Icons.delete,
+          callback: () async {
+            final title = widget.group.title;
+            final shouldDeleteGroup = await DeleteDialog(
+                    titleOfObjectToDelete: '${Strings.group}: $title')
+                .present(context)
+                .then((shouldDelete) => shouldDelete ?? false);
+            if (shouldDeleteGroup) {
+              await ref
+                  .read(deleteGroupProvider.notifier)
+                  .deleteGroup(group: widget.group);
+              if (mounted) {
+                Navigator.of(context).pop();
+              }
             }
-          }
-        }
-      ) ,
+          }),
     ];
 
     return DismissKeyboardWidget(
@@ -119,9 +118,9 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
               Text(widget.group.title),
             ],
           ),
-          actions: isGroupAdmin
-              ? [
-                  PopupMenuButton(
+          actions: [
+            isGroupAdmin
+                ? PopupMenuButton(
                     onSelected: (item) => item.callback(),
                     itemBuilder: (context) => menuItems.map((item) {
                       return PopupMenuItem<PopupMenuItemData>(
@@ -141,8 +140,27 @@ class _GroupCommentAndPollState extends ConsumerState<GroupCommentAndPoll> {
                       );
                     }).toList(),
                   )
-                ]
-              : null,
+                : IconButton(
+                    onPressed: () async {
+                      final title = widget.group.title;
+                      final shouldLeaveGroup = await LeaveDialog(
+                              titleOfObject: '${Strings.group}: $title')
+                          .present(context)
+                          .then((shouldLeave) => shouldLeave ?? false);
+                      if (shouldLeaveGroup) {
+                        await ref
+                            .read(leaveGroupNotifierProvider.notifier)
+                            .leaveGroup(
+                              groupId: widget.groupId,
+                              userId: currentUserId!,
+                            );
+                        if (mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      }
+                    },
+                    icon: const Icon(Icons.subdirectory_arrow_right))
+          ],
         ),
         body: widget.group.allowsComments
             ? Row(

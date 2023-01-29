@@ -41,104 +41,106 @@ class _VoteButtonState extends ConsumerState<VoteButton> {
     final buttonStateCounter =
         ref.watch(buttonStatePressedProvider(widget.pollComment.pollId)).value;
 
-    return Visibility(
-      visible: buttonStateCounter == 0,
-      child: TextButton(
-        style: widget.isDarkMode
-            ? TextButton.styleFrom(
-                backgroundColor: AppColors.perano,
-                foregroundColor: AppColors.blackPanther,
-              )
-            : TextButton.styleFrom(
-                backgroundColor: AppColors.ebonyClay,
-                foregroundColor: AppColors.perano,
-              ),
-        onPressed: () {
-          int highestVoteCount = 0;
+    return TextButton(
+      style: widget.isDarkMode
+          ? TextButton.styleFrom(
+              backgroundColor: AppColors.perano,
+              foregroundColor: AppColors.blackPanther,
+            )
+          : TextButton.styleFrom(
+              backgroundColor: AppColors.ebonyClay,
+              foregroundColor: AppColors.perano,
+            ),
+      onPressed: buttonStateCounter == 0
+          ? () {
+              int highestVoteCount = 0;
 
-          String? highestPollId;
+              String? highestPollId;
 
-          List<String> tiedPollIds = [];
+              List<String> tiedPollIds = [];
 
-          final random = Random();
+              final random = Random();
 
-          final emails = userInfo!.map((user) => user.email).toList();
+              final emails = userInfo!.map((user) => user.email).toList();
 
-          List<EventAttendee> attendees =
-              emails.map((email) => EventAttendee()..email = email).toList();
+              List<EventAttendee> attendees = emails
+                  .map((email) => EventAttendee()..email = email)
+                  .toList();
 
-          voteCount(String pollId) {
-            return ref.read(voteCountProvider(pollId)).value;
-          }
-
-          DateTime? dateTime;
-          TimeOfDay? timeOfDay;
-          DateFormat? format;
-
-          bool? shouldProceed = false;
-
-          for (final pollValue in widget.pollComment.meetingPolls) {
-            final voteCounts = voteCount(pollValue.pollId);
-            if (voteCounts == null) {
-              break;
-            } else if (voteCounts == 0) {
-              shouldProceed = true;
-            } else if (voteCounts > highestVoteCount) {
-              shouldProceed = true;
-              highestVoteCount = voteCounts;
-              highestPollId = pollValue.pollId;
-            } else if (voteCounts == highestVoteCount) {
-              shouldProceed = true;
-              tiedPollIds.add(pollValue.pollId);
-            }
-          }
-          if (highestPollId == null) {
-            return;
-          }
-
-          if (shouldProceed!) {
-            ref.read(buttonPressedNotifierProvider);
-            if (tiedPollIds.isNotEmpty) {
-              if (random.nextBool()) {
-                tiedPollIds.shuffle(random);
-                highestPollId = tiedPollIds.first;
-              } else {
-                highestPollId;
+              voteCount(String pollId) {
+                return ref.read(voteCountProvider(pollId)).value;
               }
-            }
 
-            for (final pollValue in widget.pollComment.meetingPolls) {
-              if (pollValue.pollId == highestPollId) {
-                dateTime = DateFormat.yMMMd().parse(pollValue.date);
-                format = DateFormat.jm();
-                timeOfDay =
-                    TimeOfDay.fromDateTime(format.parse(pollValue.time));
+              DateTime? dateTime;
+              TimeOfDay? timeOfDay;
+              DateFormat? format;
+
+              bool? shouldProceed = false;
+
+              for (final pollValue in widget.pollComment.meetingPolls) {
+                final voteCounts = voteCount(pollValue.pollId);
+                if (voteCounts == null) {
+                  break;
+                } else if (voteCounts == 0) {
+                  shouldProceed = true;
+                } else if (voteCounts > highestVoteCount) {
+                  shouldProceed = true;
+                  highestVoteCount = voteCounts;
+                  highestPollId = pollValue.pollId;
+                } else if (voteCounts == highestVoteCount) {
+                  shouldProceed = true;
+                  tiedPollIds.add(pollValue.pollId);
+                }
               }
-            }
+              if (highestPollId == null) {
+                return;
+              }
 
-            insertGoogleCalendarEvent(
-              title: widget.pollComment.title,
-              description: widget.pollComment.description,
-              startDate: dateTime!,
-              startTime: timeOfDay!,
-              attendeesEmails: attendees,
-              hasConferenceSupport: true,
-              shouldNotifyAttendees: true,
-            );
+              if (shouldProceed!) {
+                ref.read(buttonPressedNotifierProvider);
+                if (tiedPollIds.isNotEmpty) {
+                  if (random.nextBool()) {
+                    tiedPollIds.shuffle(random);
+                    highestPollId = tiedPollIds.first;
+                  } else {
+                    highestPollId;
+                  }
+                }
 
-            _buttonPressed = !_buttonPressed;
-            ref.read(buttonPressedNotifierProvider.notifier).sendButtonState(
-                  pollId: widget.pollComment.pollId,
-                  userId: widget.polls.first.userId,
-                  buttonPressed: _buttonPressed,
-                  groupId: widget.polls.first.groupId,
+                for (final pollValue in widget.pollComment.meetingPolls) {
+                  if (pollValue.pollId == highestPollId) {
+                    dateTime = DateFormat.yMMMd().parse(pollValue.date);
+                    format = DateFormat.jm();
+                    timeOfDay =
+                        TimeOfDay.fromDateTime(format.parse(pollValue.time));
+                  }
+                }
+
+                insertGoogleCalendarEvent(
+                  title: widget.pollComment.title,
+                  description: widget.pollComment.description,
+                  startDate: dateTime!,
+                  startTime: timeOfDay!,
+                  attendeesEmails: attendees,
+                  hasConferenceSupport: true,
+                  shouldNotifyAttendees: true,
                 );
-          }
-        },
-        child: buttonStateCounter == 0
-            ? const Text(Strings.confirmMeeting)
-            : const Text('Undo Pressed'),
-      ),
+
+                _buttonPressed = !_buttonPressed;
+                ref
+                    .read(buttonPressedNotifierProvider.notifier)
+                    .sendButtonState(
+                      pollId: widget.pollComment.pollId,
+                      userId: widget.polls.first.userId,
+                      buttonPressed: _buttonPressed,
+                      groupId: widget.polls.first.groupId,
+                    );
+              }
+            }
+          : null,
+      child: buttonStateCounter == 0
+          ? const Text(Strings.confirmMeeting)
+          : const Text('Confirmed'),
     );
     //
   }

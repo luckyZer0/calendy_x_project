@@ -13,12 +13,14 @@ class VoterPoll extends MapView<String, String> {
     required PollId pollId,
     required GroupId groupId,
     required UserId voteBy,
+    required String meetingId,
     required DateTime date,
   }) : super({
           FirebaseFieldName.pollId: pollId,
           FirebaseFieldName.groupId: groupId,
           FirebaseFieldName.userId: voteBy,
           FirebaseFieldName.date: date.toIso8601String(),
+          FirebaseFieldName.meetingId: meetingId,
         });
 }
 

@@ -24,7 +24,7 @@ class DeleteGroupStateNotifier extends StateNotifier<IsLoading> {
           .child(group.thumbnailStorageId)
           .delete();
 
-      // delete the post's original file (video or image)
+      // delete the post's original file
       await FirebaseStorage.instance
           .ref()
           .child(group.adminId)

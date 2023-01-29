@@ -48,6 +48,7 @@ class VoteListCard extends ConsumerWidget {
                       pollId: id,
                       voteBy: userId,
                       groupId: pollComment.groupId,
+                      meetingId: pollComment.pollId,
                     );
 
                     ref.read(votePollProvider(voteRequest));
@@ -67,7 +68,7 @@ class VoteListCard extends ConsumerWidget {
                   ),
                   const Spacer(flex: 2),
                   Flexible(
-                    flex: 3,
+                    flex: 4,
                     child: Text(meetingPoll.time),
                   ),
                   const Spacer(flex: 3),

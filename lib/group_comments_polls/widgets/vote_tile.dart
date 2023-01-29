@@ -1,3 +1,4 @@
+import 'package:calendy_x_project/group_comments_polls/providers/button_pressed_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -36,6 +37,8 @@ class VoteTile extends HookConsumerWidget {
     final isDarkMode = ref.watch(themeModeProvider);
     final currentUserId = ref.read(userIdProvider);
     final isGroupAdmin = currentUserId == group.adminId;
+    final buttonStateCounter =
+        ref.watch(buttonStatePressedProvider(pollComment.pollId)).value;
 
     return Material(
       color: isDarkMode ? AppColors.blackPanther : AppColors.perano,
@@ -104,7 +107,21 @@ class VoteTile extends HookConsumerWidget {
                           poll: poll,
                         ),
                       )
-                    : const SizedBox(),
+                    : buttonStateCounter == 0
+                        ? const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Pending...',
+                              overflow: TextOverflow.clip,
+                            ),
+                          )
+                        : const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Confirmed',
+                              overflow: TextOverflow.clip,
+                            ),
+                          ),
                 Padding(
                   padding: const EdgeInsets.only(right: 4.0),
                   child: Text(

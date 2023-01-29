@@ -20,6 +20,7 @@ class FirebaseFieldName {
   static const voteId = 'vote_id';
   static const voters = 'voters';
   static const meetingPolls = 'meeting_poll';
+  static const meetingId = 'meeting_id';
   static const calendarId = 'calendar_id';
   static const description = 'description';
   static const location = 'location';
